@@ -27,3 +27,4 @@ Customize the status bar by adding any of these lines to your .tmux.conf as desi
 * Enable cpu usage: `set -g @dracula-cpu-usage true`
 * Enable ram usage: `set -g @dracula-ram-usage true`
 * Enable gpu usage: `set -g @dracula-gpu-usage true`
+* Enable dimmed inactive pane usage: `set -g @dracula-dim-inactive-panes true`
