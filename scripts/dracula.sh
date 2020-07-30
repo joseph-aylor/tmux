@@ -21,15 +21,16 @@ main()
   show_network=$(get_tmux_option "@dracula-show-network" true)
   show_weather=$(get_tmux_option "@dracula-show-weather" true)
   show_fahrenheit=$(get_tmux_option "@dracula-show-fahrenheit" true)
-  show_powerline=$(get_tmux_option "@dracula-show-powerline" false)
-  show_left_icon=$(get_tmux_option "@dracula-show-left-icon" smiley)
-  show_military=$(get_tmux_option "@dracula-military-time" false)
-  show_left_sep=$(get_tmux_option "@dracula-show-left-sep" )
-  show_right_sep=$(get_tmux_option "@dracula-show-right-sep" )
+  show_powerline=$(get_tmux_option "@dracula-show-powerline" true)
+  show_left_icon=$(get_tmux_option "@dracula-show-left-icon" session)
+  show_military=$(get_tmux_option "@dracula-military-time" true)
+  show_left_sep=$(get_tmux_option "@dracula-show-left-sep" '|')
+  show_right_sep=$(get_tmux_option "@dracula-show-right-sep" '|')
   show_border_contrast=$(get_tmux_option "@dracula-border-contrast" false)
   show_cpu_usage=$(get_tmux_option "@dracula-cpu-usage" false)
   show_ram_usage=$(get_tmux_option "@dracula-ram-usage" false)
   show_gpu_usage=$(get_tmux_option "@dracula-gpu-usage" false)
+  dim_inactive_panes=$(get_tmux_option "@dracula-dim-inactive-panes" false)
 
   # Dracula Color Pallette
   white='#f8f8f2'
@@ -43,6 +44,7 @@ main()
   red='#ff5555'
   pink='#ff79c6'
   yellow='#f1fa8c'
+  black='#000000'
   
 
   # Handle left icon configuration
@@ -66,6 +68,11 @@ main()
   # start weather script in background
   if $show_weather; then
     $current_dir/sleep_weather.sh $show_fahrenheit &
+  fi
+
+  if $dim_inactive_panes; then
+    tmux set-option -g window-style "bg=$gray"
+    tmux set-option -g window-active-style "bg=$black"
   fi
   
   # sets refresh interval to every 5 seconds
